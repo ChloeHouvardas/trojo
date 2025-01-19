@@ -1,41 +1,16 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/HomePage";
 import Emails from "./pages/Emails";
-import {useEffect} from 'react';
-
-// click to go from landing page to emails
-const ClickToNavigate = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    const handleClick = () => {
-      if (location.pathname === '/') {
-        navigate('/emails');
-      }
-    };
-
-    // add event listener to doc
-    document.addEventListener('click', handleClick);
-
-    // cleanup event listener when component unmounts
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, [navigate, location]);
-  return null;
-};
-
-
+import Loading from "./pages/Loading";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <ClickToNavigate />
       <Routes>
-          <Route index element={<Home />} />
-          <Route path='emails' element={<Emails />} />
+        <Route index element={<Home />} />
+        <Route path="loading" element={<Loading />} />
+        <Route path="emails" element={<Emails />} />
       </Routes>
     </BrowserRouter>
   );

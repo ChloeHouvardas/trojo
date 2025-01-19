@@ -1,6 +1,13 @@
 import GUY_HANGING from '../assets/GUY_HANGING.png';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/loading'); // Navigate to the Loading page
+  };
+
   return (
     <div className="homepage-container">
       {/* Flex container for the two main sections */}
@@ -11,7 +18,7 @@ const HomePage = () => {
           <p className="safety-description">
             This is a short description of the product and/or a phrase that makes people want to click!
           </p>
-          <button className="get-started-button">Get started</button>
+          <button className="get-started-button" onClick={handleGetStarted}>Get started</button>
         </div>
 
         {/* Trojo Section */}

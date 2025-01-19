@@ -1,0 +1,70 @@
+/* Center the container */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(90deg, #3a3d5c, #1f2235); /* Matching gradient */
+    color: white;
+    font-family: Poppins;
+  }
+  
+  /* Center and spin the image */
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .spinning-image {
+    width: 100px; /* Adjust the size of the image */
+    height: 100px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Progress bar container */
+  .progress-bar {
+    width: 80%; /* Adjust the width of the progress bar */
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  
+  /* Animated progress */
+  .progress {
+    height: 100%;
+    background-color: #4caf50;
+    animation: load 6s linear forwards;
+  }
+  
+  @keyframes load {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  /* Rotating message */
+  .loading-message {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
