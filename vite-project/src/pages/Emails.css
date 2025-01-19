@@ -28,3 +28,11 @@
     white-space: normal; /* Allow text to wrap */
     word-wrap: break-word; /* Break long words */
 }
+
+/* Gradient highlight for specific words */
+.highlight {
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+  }  
