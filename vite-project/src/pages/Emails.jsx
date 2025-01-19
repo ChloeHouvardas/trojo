@@ -70,9 +70,18 @@ We sincerely appreciate your understanding during this transition and look forwa
   const [chatInput, setChatInput] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [preloadedMessage, setPreloadedMessage] = useState("");
 
-  const additionalWords = ["as soon as possible", "Team", "Loblaw", "Push notifications, unexpected message, Team Lead", "SCHEDULE YOUR DELIVERY", "YOUR PACKAGE IS COMING", "just reply", "recruitment assistant"];
+  const additionalWords = ["as soon as possible", "Team", "Loblaw", "Push notifications"];
   const message = "Phew, that was a close one";
+
+  // Predefined reasons for flagged words
+  const wordReasons = {
+    "as soon as possible": "This is an indicator of phishing because the sender is trying to instill a sense of urgency.",
+    Team: "This could be an indicator of phishing because the sender does not specify a real team or department.",
+    Loblaw: "Phishing emails often impersonate well-known companies like Loblaw to appear legitimate.",
+    "Push notifications": "This could be an indicator of phishing, encouraging unnecessary subscription to keep you engaged.",
+  };
 
   // Fetch flagged words for each email
   useEffect(() => {
@@ -146,7 +155,10 @@ We sincerely appreciate your understanding during this transition and look forwa
           <span
             key={index}
             className="highlight"
-            onClick={() => setIsImageVisible(true)}
+            onClick={() => {
+              setIsImageVisible(true);
+              setPreloadedMessage(wordReasons[word.toLowerCase()] || "This word may indicate phishing.");
+            }}
           >
             {word}
           </span>
@@ -188,6 +200,7 @@ We sincerely appreciate your understanding during this transition and look forwa
     setChatText("");
     setShowButton(false);
     setIsChatBotOpen(false);
+    setPreloadedMessage("");
   };
 
   return (
@@ -217,7 +230,12 @@ We sincerely appreciate your understanding during this transition and look forwa
           {showButton && (
             <button
               className="tell-me-more-button"
-              onClick={() => setIsChatBotOpen(true)}
+              onClick={() => {
+                setIsChatBotOpen(true);
+                setChatMessages([
+                  { sender: "bot", text: preloadedMessage },
+                ]);
+              }}
             >
               Tell me more
             </button>
