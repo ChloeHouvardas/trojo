@@ -87,3 +87,25 @@
   top: 100%; /* Start at the bottom of the "j" */
   transform: translateX(-50%);
 }
+
+.trojo-header {
+  position: relative;
+  font-size: 48px; /* Adjust based on your design */
+}
+
+.long-j {
+  font-size: inherit;
+  position: relative;
+}
+
+.hanging-image {
+  position: absolute;
+  top: 410px; /* Adjust this value to move the image vertically */
+  left: 74.7%; /* Adjust horizontally relative to the j */
+  transform: translateX(-50%);
+}
+
+.hanging-image img {
+  width: 100px; /* Adjust the size of the image */
+  height: auto;
+}

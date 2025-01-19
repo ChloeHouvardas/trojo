@@ -1,3 +1,5 @@
+import GUY_HANGING from '../assets/GUY_HANGING.png';
+
 const HomePage = () => {
   return (
     <div className="homepage-container">
@@ -16,6 +18,9 @@ const HomePage = () => {
         <div className="trojo-section">
           <h1 className="trojo-header">
             Tro<span className="long-j">j</span>o
+            <div className="hanging-image">
+              <img src={GUY_HANGING} alt="Guy hanging on the j" />
+            </div>
           </h1>
         </div>
       </div>

@@ -1,0 +1,30 @@
+.emails-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(90deg, #3a3d5c, #1f2235); /* Matching gradient */
+    color: white;
+    font-family: Poppins;
+    overflow-y: auto; /* Allow vertical scrolling */
+    padding: 0 20px; /* Add horizontal padding */
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background color to header */
+}
+
+.email-box {
+    width: 95%; /* Increase width */
+    margin: 20px 0; /* Increase vertical margin */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Optional: Add background color to email boxes */
+    border-radius: 5px;
+    overflow: hidden; /* Prevent text overflow */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words */
+}
