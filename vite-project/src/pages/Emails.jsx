@@ -1,17 +1,22 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Install axios for API calls: npm install axios
 import './Emails.css'; // Import the CSS file
 import GUY_STOPPING from '../assets/GUY_STOPPING.png'; // Adjust the path
 
 const Emails = () => {
-  const [hoverImage, setHoverImage] = useState(false);
+  const [isImageVisible, setIsImageVisible] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [chatText, setChatText] = useState("");
+  const [showButton, setShowButton] = useState(false);
+  const [isChatBotOpen, setIsChatBotOpen] = useState(false);
+  const [chatInput, setChatInput] = useState("");
+  const [chatMessages, setChatMessages] = useState([]);
 
   const message = "Phew, that was a close one"; // The message to display
 
   useEffect(() => {
-    if (hoverImage) {
-      // When the hover image is active, show chat box after animation
+    if (isImageVisible) {
+      // Show chat box after animation
       const chatTimeout = setTimeout(() => {
         setShowChat(true);
         let currentText = "";
@@ -24,17 +29,19 @@ const Emails = () => {
 
           if (index >= message.length) {
             clearInterval(typeInterval); // Stop typing effect when done
+            setShowButton(true); // Show the "Tell me more" button
           }
         }, 100); // Adjust typing speed here
       }, 2000); // Delay for animation duration (2 seconds)
 
       return () => clearTimeout(chatTimeout); // Cleanup timeout on unmount
     } else {
-      // Reset the chat box when hoverImage is inactive
+      // Reset chat box when image visibility is toggled off
       setShowChat(false);
       setChatText("");
+      setShowButton(false);
     }
-  }, [hoverImage]);
+  }, [isImageVisible]);
 
   const highlightWords = (text) => {
     const wordsToHighlight = ["and", "the"]; // Words to highlight
@@ -46,8 +53,7 @@ const Emails = () => {
           <span
             key={index}
             className="highlight"
-            onMouseEnter={() => setHoverImage(true)}
-            onMouseLeave={() => setHoverImage(false)}
+            onClick={() => setIsImageVisible(true)}
           >
             {word}
           </span>
@@ -55,6 +61,44 @@ const Emails = () => {
       }
       return word;
     });
+  };
+
+  const sendMessage = async () => {
+    if (!chatInput.trim()) return;
+
+    // Display the user's message in the chat
+    setChatMessages([...chatMessages, { sender: "user", text: chatInput }]);
+
+    try {
+      // Send the message to the Flask backend
+      const response = await axios.post("http://localhost:5000/chat", {
+        message: chatInput,
+      });
+
+      const botResponse = response.data.response;
+
+      // Display the chatbot's response
+      setChatMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "bot", text: botResponse },
+      ]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setChatMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "bot", text: "Sorry, something went wrong." },
+      ]);
+    }
+
+    setChatInput(""); // Clear the input field
+  };
+
+  const closeChatBubble = () => {
+    setIsImageVisible(false); // Hide the image
+    setShowChat(false); // Close the chat bubble
+    setChatText("");
+    setShowButton(false);
+    setIsChatBotOpen(false);
   };
 
   const emails = [
@@ -90,12 +134,60 @@ const Emails = () => {
           </div>
         ))}
       </div>
-      {hoverImage && (
+      {isImageVisible && (
         <img src={GUY_STOPPING} alt="Guy stopping" className="floating-image" />
       )}
       {showChat && (
         <div className="chat-box">
-          <p>{chatText}</p>
+          <div className="chat-header">
+            <p>{chatText}</p>
+            <button className="close-chat-button" onClick={closeChatBubble}>
+              X
+            </button>
+          </div>
+          {showButton && (
+            <button
+              className="tell-me-more-button"
+              onClick={() => setIsChatBotOpen(true)}
+            >
+              Tell me more
+            </button>
+          )}
+        </div>
+      )}
+      {isChatBotOpen && (
+        <div className="chatbot-popup">
+          <div className="chatbot-header">
+            <h3>Security Bot</h3>
+            <button
+              className="close-button"
+              onClick={() => setIsChatBotOpen(false)}
+            >
+              X
+            </button>
+          </div>
+          <div className="chatbot-body">
+            <div className="chat-messages">
+              {chatMessages.map((msg, index) => (
+                <p
+                  key={index}
+                  className={
+                    msg.sender === "user" ? "user-message" : "bot-message"
+                  }
+                >
+                  {msg.text}
+                </p>
+              ))}
+            </div>
+            <textarea
+              value={chatInput}
+              onChange={(e) => setChatInput(e.target.value)}
+              placeholder="Type your question here..."
+            ></textarea>
+            <button className="send-button" onClick={sendMessage}>
+              Send
+            </button>
+          </div>
         </div>
       )}
     </div>
