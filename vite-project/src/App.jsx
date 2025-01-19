@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/HomePage";
+import Emails from "./pages/Emails";
 import {useEffect} from 'react';
 
 // click to go from landing page to emails
@@ -34,6 +35,7 @@ export default function App() {
       <ClickToNavigate />
       <Routes>
           <Route index element={<Home />} />
+          <Route path='emails' element={<Emails />} />
       </Routes>
     </BrowserRouter>
   );
