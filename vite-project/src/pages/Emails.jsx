@@ -159,7 +159,7 @@ Looking forward to helping your business grow online!`,
 
   return (
     <div className="emails-container">
-      <h1 className="emails-header">Emails</h1>
+      <h1 className="emails-header">Trojo</h1>
       <div className="email-list">
         {emails.map((email, index) => (
           <div key={index} className="email-box">
