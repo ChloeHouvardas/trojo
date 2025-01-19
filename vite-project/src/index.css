@@ -1,70 +1,111 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
+/* Full-page container */
+.homepage-container {
   display: flex;
   justify-content: center;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(90deg, #3a3d5c, #1f2235); /* Matching gradient */
+  color: white;
+  font-family: Poppins;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Flex container for the two sections */
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+/* Safety section styles */
+.safety-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1; /* Take up equal width */
+}
+
+.safety-header {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.safety-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.get-started-button {
+  background-color: #2a2e47;
+  color: white;
+  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 20px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.get-started-button:hover {
+  background-color: #44496d;
+}
 
+/* Trojo section styles */
+.trojo-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1; /* Take up equal width */
+  text-align: right;
+}
+
+.trojo-header {
+  font-size: 6rem;
+  font-weight: bold;
+  line-height: 0.8;
+
+.long-j {
+  display: inline-block;
+  font-size: 8rem; /* Make the 'j' larger */
+  line-height: 4rem; /* Adjust the height of the letter */
+  color: white;
+  position: relative;
+}
+
+.long-j::after {
+  content: "";
+  display: block;
+  width: 0.2rem; /* Thickness of the extension */
+  height: 5rem; /* Length of the extended line */
+  background-color: white;
+  position: absolute;
+  left: 50%; /* Center the line */
+  top: 100%; /* Start at the bottom of the "j" */
+  transform: translateX(-50%);
+}
+
+.trojo-header {
+  position: relative;
+  font-size: 48px; /* Adjust based on your design */
+}
+
+.long-j {
+  font-size: inherit;
+  position: relative;
+}
+
+.hanging-image {
+  position: absolute;
+  top: 410px; /* Adjust this value to move the image vertically */
+  left: 74.7%; /* Adjust horizontally relative to the j */
+  transform: translateX(-50%);
+}
+
+.hanging-image img {
+  width: 100px; /* Adjust the size of the image */
+  height: auto;
 }
