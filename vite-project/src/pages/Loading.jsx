@@ -12,12 +12,12 @@ const Loading = () => {
     // Rotate messages every 2 seconds
     const messageInterval = setInterval(() => {
       setCurrentMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
-    }, 2000);
+    }, 1000);
 
     // Navigate to /emails after 6 seconds
     const timer = setTimeout(() => {
       navigate('/emails');
-    }, 6000);
+    }, 3000);
 
     // Cleanup intervals and timeouts on unmount
     return () => {
