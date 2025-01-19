@@ -1,6 +1,41 @@
+import { useState, useEffect } from 'react';
 import './Emails.css'; // Import the CSS file
+import GUY_STOPPING from '../assets/GUY_STOPPING.png'; // Adjust the path
 
 const Emails = () => {
+  const [hoverImage, setHoverImage] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [chatText, setChatText] = useState("");
+
+  const message = "Phew, that was a close one"; // The message to display
+
+  useEffect(() => {
+    if (hoverImage) {
+      // When the hover image is active, show chat box after animation
+      const chatTimeout = setTimeout(() => {
+        setShowChat(true);
+        let currentText = "";
+        let index = 0;
+
+        const typeInterval = setInterval(() => {
+          currentText += message[index];
+          setChatText(currentText);
+          index++;
+
+          if (index >= message.length) {
+            clearInterval(typeInterval); // Stop typing effect when done
+          }
+        }, 100); // Adjust typing speed here
+      }, 2000); // Delay for animation duration (2 seconds)
+
+      return () => clearTimeout(chatTimeout); // Cleanup timeout on unmount
+    } else {
+      // Reset the chat box when hoverImage is inactive
+      setShowChat(false);
+      setChatText("");
+    }
+  }, [hoverImage]);
+
   const highlightWords = (text) => {
     const wordsToHighlight = ["and", "the"]; // Words to highlight
     const regex = new RegExp(`\\b(${wordsToHighlight.join("|")})\\b`, "gi"); // Match whole words only
@@ -8,7 +43,12 @@ const Emails = () => {
     return text.split(regex).map((word, index) => {
       if (wordsToHighlight.includes(word.toLowerCase())) {
         return (
-          <span key={index} className="highlight">
+          <span
+            key={index}
+            className="highlight"
+            onMouseEnter={() => setHoverImage(true)}
+            onMouseLeave={() => setHoverImage(false)}
+          >
             {word}
           </span>
         );
@@ -50,6 +90,14 @@ const Emails = () => {
           </div>
         ))}
       </div>
+      {hoverImage && (
+        <img src={GUY_STOPPING} alt="Guy stopping" className="floating-image" />
+      )}
+      {showChat && (
+        <div className="chat-box">
+          <p>{chatText}</p>
+        </div>
+      )}
     </div>
   );
 };

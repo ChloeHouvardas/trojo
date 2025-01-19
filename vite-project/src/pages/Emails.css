@@ -5,28 +5,32 @@
     height: 100vh;
     background: linear-gradient(90deg, #3a3d5c, #1f2235); /* Matching gradient */
     color: white;
-    font-family: Poppins;
+    font-family: Poppins, sans-serif;
     overflow-y: auto; /* Allow vertical scrolling */
-    padding: 0 20px; /* Add horizontal padding */
+    padding: 20px; /* Add padding around the container */
 }
 
+/* Header styles */
 .header {
     width: 100%;
     text-align: center;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background color to header */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Email box styles */
 .email-box {
     width: 95%; /* Increase width */
     margin: 20px 0; /* Increase vertical margin */
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1); /* Optional: Add background color to email boxes */
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1); /* Add slight transparency */
+    border-radius: 8px;
     overflow: hidden; /* Prevent text overflow */
     text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
     white-space: normal; /* Allow text to wrap */
     word-wrap: break-word; /* Break long words */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
 }
 
 /* Gradient highlight for specific words */
@@ -35,4 +39,67 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: bold;
-  }  
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.highlight:hover {
+    color: #ff8a00;
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Floating image styles */
+.floating-image {
+    position: fixed;
+    top: -100px; /* Start off-screen */
+    right: -100px; /* Start off-screen */
+    width: 150px; /* Adjust size */
+    height: auto;
+    animation: float-in 2s ease-out forwards;
+}
+
+@keyframes float-in {
+    0% {
+        top: -150px;
+        right: -150px;
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        top: 70%; /* Position the image near the bottom-right corner */
+        right: 10%;
+        opacity: 1;
+    }
+}
+
+/* Chat box styles */
+.chat-box {
+    position: fixed;
+    bottom: 80px; /* Position from the bottom of the screen */
+    right: 260px; /* Position from the right of the screen */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+    border-radius: 8px;
+    padding: 15px 20px; /* Padding inside the box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333; /* Dark text */
+    max-width: 300px; /* Limit the width of the box */
+    animation: fade-in 1s ease-out;
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+/* Fade-in animation for chat box */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
